@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimarket Don Lucho — Todo lo que necesitas, cerca de ti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1d5b3a; --verde-osc:#123d27; --menta:#e6f2e9;
+  --tomate:#d9382b; --sol:#ffd23f; --blanco:#ffffff; --tinta:#1c2a22; --gris:#5d6b63;
+  --titulo:'Bricolage Grotesque','Trebuchet MS',sans-serif;
+  --texto:'DM Sans','Segoe UI',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texto);color:var(--tinta);background:var(--blanco);line-height:1.55}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--sol);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--titulo);line-height:1.1}
+
+/* Header */
+header{position:sticky;top:0;z-index:20;background:var(--verde);color:#fff}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--titulo);font-weight:800;font-size:1.35rem;display:flex;align-items:center;gap:8px}
+.logo span{background:var(--sol);color:var(--verde-osc);border-radius:8px;padding:2px 8px}
+nav ul{display:flex;gap:22px;list-style:none;font-weight:500}
+nav a:hover{color:var(--sol)}
+.carrito-btn{background:var(--sol);color:var(--verde-osc);border:0;border-radius:999px;padding:9px 16px;font:700 .95rem var(--texto);cursor:pointer}
+@media(max-width:720px){nav ul{display:none}}
+
+/* Hero */
+.hero{background:var(--verde);color:#fff;padding:56px 0 80px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.3rem,5.5vw,4rem);font-weight:800;letter-spacing:-.02em}
+.hero p{margin:18px 0 28px;max-width:46ch;color:#d4e8da;font-size:1.1rem}
+.btn{display:inline-block;border-radius:999px;padding:13px 26px;font-weight:700;border:2px solid transparent;cursor:pointer;font-family:var(--texto);font-size:1rem}
+.btn-sol{background:var(--sol);color:var(--verde-osc)}
+.btn-sol:hover{background:#ffe27a}
+.btn-borde{border-color:#fff;color:#fff;margin-left:8px}
+.btn-borde:hover{background:#ffffff22}
+.etiqueta{background:var(--blanco);color:var(--tinta);border-radius:14px;padding:22px 26px;transform:rotate(-3deg);box-shadow:0 12px 0 var(--verde-osc);max-width:340px;margin-inline:auto;position:relative}
+.etiqueta::before{content:"";position:absolute;top:14px;right:16px;width:14px;height:14px;border-radius:50%;background:var(--verde);opacity:.25}
+.etiqueta small{color:var(--gris);font-weight:500}
+.etiqueta h3{font-size:1.5rem;margin:4px 0 10px}
+.precio-grande{font-family:var(--titulo);font-weight:800;font-size:3.6rem;color:var(--tomate);line-height:1}
+.precio-grande sup{font-size:1.3rem;margin-right:4px}
+.precio-grande s{font-size:1.1rem;color:var(--gris);font-weight:600;margin-left:8px}
+.etiqueta .pie{margin-top:12px;font-size:.88rem;color:var(--gris);border-top:2px dashed #cfd8d2;padding-top:10px}
+.onda{position:absolute;bottom:-1px;left:0;width:100%;height:40px;fill:#fff}
+@media(max-width:820px){.hero .wrap{grid-template-columns:1fr}.btn-borde{margin:10px 0 0}}
+
+/* Secciones */
+section{padding:64px 0}
+.sec-titulo{font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;margin-bottom:8px}
+.sec-sub{color:var(--gris);margin-bottom:30px;max-width:56ch}
+
+/* Categorías / filtros */
+.filtros{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.filtro{border:2px solid var(--verde);background:#fff;color:var(--verde);border-radius:999px;padding:8px 18px;font:700 .95rem var(--texto);cursor:pointer}
+.filtro[aria-pressed="true"]{background:var(--verde);color:#fff}
+
+/* Productos */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px}
+.prod{background:var(--menta);border-radius:18px;padding:18px;display:flex;flex-direction:column}
+.prod .emoji{font-size:3.4rem;background:#fff;border-radius:14px;height:110px;display:grid;place-items:center;margin-bottom:14px}
+.prod h3{font-size:1.1rem}
+.prod .det{color:var(--gris);font-size:.9rem;margin:2px 0 12px}
+.prod .fila{margin-top:auto;display:flex;align-items:center;justify-content:space-between}
+.prod .precio{font-family:var(--titulo);font-weight:800;font-size:1.4rem;color:var(--verde-osc)}
+.agregar{background:var(--verde);color:#fff;border:0;border-radius:10px;padding:8px 14px;font:700 .9rem var(--texto);cursor:pointer}
+.agregar:hover{background:var(--verde-osc)}
+.oferta-tag{align-self:flex-start;background:var(--tomate);color:#fff;font-size:.78rem;font-weight:700;border-radius:6px;padding:2px 8px;margin-bottom:8px}
+
+/* Banda ofertas */
+.banda{background:var(--sol);padding:40px 0}
+.banda .wrap{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.banda h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;color:var(--verde-osc)}
+.banda p{color:#3b3a1a}
+
+/* Por qué */
+.razones{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:30px}
+.razon .ico{width:54px;height:54px;border-radius:50%;background:var(--menta);display:grid;place-items:center;font-size:1.6rem;margin-bottom:12px}
+.razon h3{font-size:1.2rem;margin-bottom:6px}
+.razon p{color:var(--gris)}
+
+/* Contacto */
+.contacto{background:var(--verde-osc);color:#fff}
+.contacto .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.contacto h2{font-size:2rem;font-weight:800;margin-bottom:14px}
+.contacto li{list-style:none;margin:8px 0;color:#d4e8da}
+.contacto strong{color:#fff}
+.horario{background:#ffffff14;border-radius:16px;padding:22px}
+.horario div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #ffffff40}
+.horario div:last-child{border:0}
+@media(max-width:760px){.contacto .wrap{grid-template-columns:1fr}}
+footer{background:#0c2a1b;color:#9db8a8;text-align:center;padding:20px;font-size:.9rem}
+
+/* Carrito */
+.panel{position:fixed;top:0;right:0;height:100%;width:min(380px,100%);background:#fff;z-index:50;box-shadow:-10px 0 30px #0003;transform:translateX(105%);transition:transform .25s;display:flex;flex-direction:column}
+.panel.abierto{transform:none}
+.panel header{position:static;padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+.panel header h2{font-size:1.2rem}
+.cerrar{background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer}
+.items{flex:1;overflow:auto;padding:12px 20px}
+.item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #e3e9e5;gap:10px}
+.item .cant button{width:26px;height:26px;border-radius:50%;border:1px solid var(--verde);background:#fff;color:var(--verde);font-weight:700;cursor:pointer}
+.item .cant span{display:inline-block;min-width:22px;text-align:center}
+.vacio{color:var(--gris);text-align:center;margin-top:40px}
+.total{padding:18px 20px;border-top:2px solid var(--menta)}
+.total .linea{display:flex;justify-content:space-between;font-weight:700;font-size:1.15rem;margin-bottom:12px}
+.total .btn{width:100%;text-align:center}
+.velo{position:fixed;inset:0;background:#0006;z-index:40;display:none}
+.velo.on{display:block}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#inicio" class="logo">🛒 Minimarket <span>Don Lucho</span></a>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#ofertas">Ofertas</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <button class="carrito-btn" id="abrirCarrito">Mi pedido (<span id="contador">0</span>)</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div>
+      <h1>Tu despensa completa, a la vuelta de la esquina</h1>
+      <p>Frutas frescas, abarrotes, bebidas y lo que se te olvidó para la cena. Arma tu pedido y lo preparamos para recoger o llevar a tu puerta.</p>
+      <a href="#productos" class="btn btn-sol">Ver productos</a>
+      <a href="#contacto" class="btn btn-borde">Cómo llegar</a>
+    </div>
+    <div class="etiqueta" aria-label="Oferta de la semana">
+      <small>Oferta de la semana</small>
+      <h3>Pack desayuno</h3>
+      <div class="precio-grande"><sup>S/</sup>12.90<s>S/ 16.50</s></div>
+      <p class="pie">Pan, leche 1 L, mantequilla y mermelada. Hasta agotar stock.</p>
+    </div>
+  </div>
+  <svg class="onda" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40V20Q150 0 300 20T600 20T900 20T1200 20V40Z"/></svg>
+</section>
+
+<section id="productos">
+  <div class="wrap">
+    <h2 class="sec-titulo">Lo que más se lleva</h2>
+    <p class="sec-sub">Elige tus productos, agrégalos a tu pedido y envíalo por WhatsApp.</p>
+    <div class="filtros" role="group" aria-label="Filtrar por categoría" id="filtros"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<div class="banda" id="ofertas">
+  <div class="wrap">
+    <div>
+      <h2>Martes y jueves: frutas y verduras al 15 % menos</h2>
+      <p>Mercadería que llega cada madrugada. Lo que ves hoy, se cosechó ayer.</p>
+    </div>
+    <a href="#productos" class="btn" style="background:var(--verde-osc);color:#fff">Aprovechar</a>
+  </div>
+</div>
+
+<section id="nosotros">
+  <div class="wrap">
+    <h2 class="sec-titulo">Por qué comprar con nosotros</h2>
+    <p class="sec-sub">Somos un negocio de barrio: conocemos a nuestros clientes y cuidamos cada compra.</p>
+    <div class="razones">
+      <div class="razon"><div class="ico">🥬</div><h3>Productos frescos</h3><p>Recibimos fruta, verdura y pan todos los días.</p></div>
+      <div class="razon"><div class="ico">💸</div><h3>Precios justos</h3><p>Promociones semanales y descuentos por compras grandes.</p></div>
+      <div class="razon"><div class="ico">🛵</div><h3>Delivery rápido</h3><p>Entrega en menos de 40 minutos dentro de la zona.</p></div>
+      <div class="razon"><div class="ico">🕗</div><h3>Abierto hasta tarde</h3><p>Atendemos todos los días, incluso feriados.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contacto" id="contacto">
+  <div class="wrap">
+    <div>
+      <h2>Visítanos o escríbenos</h2>
+      <ul>
+        <li><strong>Dirección:</strong> Av. Principal 123, tu ciudad</li>
+        <li><strong>Teléfono / WhatsApp:</strong> +51 999 999 999</li>
+        <li><strong>Correo:</strong> hola@donlucho.pe</li>
+        <li><strong>Pagos:</strong> efectivo, Yape, Plin y tarjeta</li>
+      </ul>
+    </div>
+    <div class="horario" aria-label="Horario de atención">
+      <div><span>Lunes a viernes</span><strong>7:00 – 22:00</strong></div>
+      <div><span>Sábados</span><strong>7:00 – 22:00</strong></div>
+      <div><span>Domingos y feriados</span><strong>8:00 – 20:00</strong></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>© 2026 Minimarket Don Lucho. Todos los derechos reservados.</footer>
+
+<!-- Carrito -->
+<div class="velo" id="velo"></div>
+<aside class="panel" id="panel" aria-label="Mi pedido" aria-hidden="true">
+  <header><h2>Mi pedido</h2><button class="cerrar" id="cerrarCarrito" aria-label="Cerrar">×</button></header>
+  <div class="items" id="items"></div>
+  <div class="total">
+    <div class="linea"><span>Total</span><span id="total">S/ 0.00</span></div>
+    <a class="btn btn-sol" id="enviar" href="#" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
+  </div>
+</aside>
+
+<script>
+const WHATSAPP = "51999999999"; // cambia por tu número, con código de país
+const productos = [
+  {id:1,n:"Manzana Fuji",d:"Por kilo",p:6.5,c:"Frutas y verduras",e:"🍎",o:true},
+  {id:2,n:"Plátano de seda",d:"Por kilo",p:4.2,c:"Frutas y verduras",e:"🍌"},
+  {id:3,n:"Tomate",d:"Por kilo",p:3.8,c:"Frutas y verduras",e:"🍅",o:true},
+  {id:4,n:"Pan francés",d:"Bolsa de 10",p:3.5,c:"Panadería",e:"🥖"},
+  {id:5,n:"Leche entera",d:"Caja 1 L",p:5.2,c:"Lácteos",e:"🥛"},
+  {id:6,n:"Queso fresco",d:"Paquete 250 g",p:9.9,c:"Lácteos",e:"🧀"},
+  {id:7,n:"Huevos",d:"Bandeja de 30",p:17.5,c:"Abarrotes",e:"🥚"},
+  {id:8,n:"Arroz extra",d:"Bolsa 5 kg",p:24.9,c:"Abarrotes",e:"🍚"},
+  {id:9,n:"Aceite vegetal",d:"Botella 1 L",p:10.5,c:"Abarrotes",e:"🫒"},
+  {id:10,n:"Gaseosa",d:"Botella 2 L",p:8.0,c:"Bebidas",e:"🥤"},
+  {id:11,n:"Agua mineral",d:"Pack de 6 · 625 ml",p:9.5,c:"Bebidas",e:"💧"},
+  {id:12,n:"Galletas surtidas",d:"Pack de 6",p:5.9,c:"Snacks",e:"🍪"}
+];
+const cats = ["Todos",...new Set(productos.map(p=>p.c))];
+let filtro = "Todos";
+const carrito = {};
+const $ = s => document.querySelector(s);
+const money = n => "S/ " + n.toFixed(2);
+
+function pintarFiltros(){
+  $("#filtros").innerHTML = cats.map(c=>`<button class="filtro" aria-pressed="${c===filtro}" data-c="${c}">${c}</button>`).join("");
+}
+function pintarProductos(){
+  const lista = productos.filter(p=>filtro==="Todos"||p.c===filtro);
+  $("#grid").innerHTML = lista.map(p=>`
+    <article class="prod">
+      ${p.o?'<span class="oferta-tag">Oferta</span>':''}
+      <div class="emoji" aria-hidden="true">${p.e}</div>
+      <h3>${p.n}</h3>
+      <p class="det">${p.d}</p>
+      <div class="fila"><span class="precio">${money(p.p)}</span>
+      <button class="agregar" data-id="${p.id}" aria-label="Agregar ${p.n} al pedido">Agregar</button></div>
+    </article>`).join("");
+}
+function pintarCarrito(){
+  const ids = Object.keys(carrito);
+  let total = 0, cant = 0, texto = [];
+  $("#items").innerHTML = ids.length ? ids.map(id=>{
+    const p = productos.find(x=>x.id==id), q = carrito[id], sub = p.p*q;
+    total += sub; cant += q; texto.push(`• ${q} x ${p.n} (${money(sub)})`);
+    return `<div class="item"><div><strong>${p.e} ${p.n}</strong><br><small>${money(p.p)} c/u</small></div>
+      <div class="cant"><button data-m="${id}" aria-label="Quitar uno">−</button><span>${q}</span><button data-s="${id}" aria-label="Agregar uno">+</button></div></div>`;
+  }).join("") : '<p class="vacio">Tu pedido está vacío.<br>Agrega productos para empezar.</p>';
+  $("#contador").textContent = cant;
+  $("#total").textContent = money(total);
+  const msg = ids.length ? `Hola, quiero hacer este pedido:\n${texto.join("\n")}\nTotal: ${money(total)}` : "Hola, quiero hacer un pedido.";
+  $("#enviar").href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+}
+function panel(abrir){
+  $("#panel").classList.toggle("abierto",abrir);
+  $("#velo").classList.toggle("on",abrir);
+  $("#panel").setAttribute("aria-hidden",!abrir);
+}
+
+$("#filtros").addEventListener("click",e=>{
+  const b = e.target.closest("[data-c]"); if(!b) return;
+  filtro = b.dataset.c; pintarFiltros(); pintarProductos();
+});
+$("#grid").addEventListener("click",e=>{
+  const b = e.target.closest("[data-id]"); if(!b) return;
+  carrito[b.dataset.id] = (carrito[b.dataset.id]||0)+1; pintarCarrito();
+  b.textContent = "Agregado ✓"; setTimeout(()=>b.textContent="Agregar",900);
+});
+$("#items").addEventListener("click",e=>{
+  const s = e.target.dataset.s, m = e.target.dataset.m;
+  if(s) carrito[s]++;
+  if(m){ carrito[m]--; if(carrito[m]<=0) delete carrito[m]; }
+  pintarCarrito();
+});
+$("#abrirCarrito").onclick = ()=>panel(true);
+$("#cerrarCarrito").onclick = ()=>panel(false);
+$("#velo").onclick = ()=>panel(false);
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") panel(false); });
+
+pintarFiltros(); pintarProductos(); pintarCarrito();
+</script>
+</body>
+</html>
